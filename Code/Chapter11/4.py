@@ -12,7 +12,6 @@ for coin in coins:
         sum = coin + price
         priceSet.add(sum)
 
-
 maxPrice = max(priceSet)
 i = 1
 while i < maxPrice:
