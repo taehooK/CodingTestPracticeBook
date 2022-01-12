@@ -2,8 +2,7 @@ from collections import deque
 import sys
 
 def bfs(graph, start, k):
-    queue = deque()
-    queue.append(start)
+    queue = deque([start])
     iLevelInsertCount = 1
     visited = dict()
     visited[start] = True
@@ -23,13 +22,9 @@ def bfs(graph, start, k):
             i += 1
         j += 1
 
-    ret = list(queue)
-    ret.sort()
-
-    return ret
+    return list(queue)
 
 n, m, k, x = map(int, input().split())
-
 graph = [[] for _ in range(n + 1)]
 
 for i in range(m):
@@ -37,6 +32,7 @@ for i in range(m):
     graph[index].append(target)
 
 ret = bfs(graph, x, k)
+ret.sort()
 
 if len(ret) > 0:
     for i in ret:
