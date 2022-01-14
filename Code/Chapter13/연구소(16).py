@@ -4,16 +4,6 @@ import copy
 
 rowOffset = [-1, 1, 0, 0]
 columnOffset = [0, 0, -1, 1]
-def getZeroAndVirusCount(area):
-    zeroCount = 0
-    virusCount = 0
-    for row in area:
-        for data in row:
-            if data == 0:
-                zeroCount += 1
-            if data == 2:
-                virusCount += 1
-    return zeroCount, virusCount
 
 def bfs(area, virusPosition, minVirusCount):
     addedvirusCount = 0
@@ -28,11 +18,13 @@ def bfs(area, virusPosition, minVirusCount):
                 virusPosition.append((row, column))
                 addedvirusCount += 1
 
+    return addedvirusCount
+
 n, m = map(int, input().split())
 area = []
 for i in range(n):
     area.append(list(map(int, input().split())))
-#모든 빈칸 좌표 찾고 데이터 넣기
+
 emptySpace = []
 virusPosition = deque()
 
@@ -42,17 +34,19 @@ for i in range(len(area)):
             emptySpace.append((i, j))
         elif area[i][j] == 2:
             virusPosition.append((i, j))
+
+emptySpaceLength = len(emptySpace) - 3 # 울타리 제외
 combination = list(combinations(emptySpace, 3))
 prtinArea = area
 maxCount = 0
-minVirusCount = n * m
+minAddedVirusCount = n * m
 for i in range(len(combination)):
-    copyArea = copy.deepcopy(area)
+    copyArea = [item[:] for item in area]
     for coordinate in combination[i]:
         copyArea[coordinate[0]][coordinate[1]] = 1
-    bfs(copyArea, copy.deepcopy(virusPosition), minVirusCount)
-    zeroCount, virusCount = getZeroAndVirusCount(copyArea)
-    minVirusCount = min(virusCount - len(virusPosition), minVirusCount)
+    addedVirusCount = bfs(copyArea, copy.deepcopy(virusPosition), minAddedVirusCount)
+    zeroCount = emptySpaceLength - addedVirusCount
+    minAddedVirusCount = min(addedVirusCount, minAddedVirusCount)
     maxCount = max(zeroCount, maxCount)
 
 print(maxCount)
