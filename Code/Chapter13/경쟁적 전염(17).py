@@ -3,33 +3,43 @@ import sys
 
 rowOffset = [-1, 1, 0, 0]
 columnOffset = [0, 0, -1, 1]
-
-def bfs(area, virusPositionQueue):
-    count = len(virusPositionQueue)
-    for i in range(count):
-        position = virusPositionQueue.popleft()
-        #상하 좌우로 퍼트리기
-        for j in range(4):
-            nextPos = (position[0] + rowOffset[j], position[1] + columnOffset[j])
-            if (0 <= nextPos[0] < len(area)
-                    and 0 <= nextPos[1] < len(area)
-                and area[nextPos[0]][nextPos[1]] == 0):
-                #퍼트리고 큐에 담는다.
-                area[nextPos[0]][nextPos[1]] = area[position[0]][position[1]]
-                virusPositionQueue.append((nextPos[0], nextPos[1]))
-
-def solution(area, time, x, y, k):
-    virusPosQueueList = [deque() for _ in range(k)]
-    #큐의 배열 만들고 바이러스의 위치들담기
+def getQueue(area, k):
+    virus = list()
     for i in range(len(area)):
         for j in range(len(area)):
             if area[i][j] > 0:
-                index = area[i][j] - 1
-                virusPosQueueList[index].append((i, j))
-    for i in range(time):
-        for virusPosQueue in virusPosQueueList:
-            bfs(area, virusPosQueue)
+                virus.append((area[i][j], i, j))
+    virus.sort()
+    queue = deque(virus)
 
+    return queue
+
+def spread(area, queue, virusInfo):
+    newInsertCount = 0
+    for j in range(4):
+        row = virusInfo[1] + rowOffset[j]
+        column = virusInfo[2] + columnOffset[j]
+        if 0 <= row < len(area) and 0 <= column < len(area) and area[row][column] == 0:
+            # 퍼트리고 큐에 담는다.
+            area[row][column] = area[virusInfo[1]][virusInfo[2]]
+            queue.append((area[row][column], row, column))
+            newInsertCount += 1
+    return newInsertCount
+
+def solution(area, time, x, y, k):
+    queue = getQueue(area, k)
+    newInsertCount = len(queue)
+
+    i = 1
+    while i <= time and newInsertCount > 0:
+        count = newInsertCount
+        newInsertCount = 0
+        j = 1
+        while j <= count:
+            virusInfo = queue.popleft()
+            newInsertCount += spread(area, queue, virusInfo)
+            j += 1
+        i += 1
     return area[x - 1][y - 1]
 
 def get_input():
