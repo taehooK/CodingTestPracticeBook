@@ -1,7 +1,6 @@
 def solution(array_2d):
     n = len(array_2d)
     m = len(array_2d[0])
-
     memory = [[0] * m for _ in range(n)]
     max = 0
 

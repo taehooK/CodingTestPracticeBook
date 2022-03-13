@@ -8,9 +8,9 @@ def solution(string):
         duplicationCount = 0
         charCount = 0
         j = 0
+
         while j < length and charCount < minLength:
             currentString = string[j:(j + i + 1)]
-
             if previousString == currentString:
                 duplicationCount += 1
             if previousString != currentString:

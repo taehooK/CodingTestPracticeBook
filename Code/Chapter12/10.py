@@ -5,7 +5,6 @@ def solution(key, lock):
         for j in list:
             if j == 1:
                 keySpinCount += 1
-
     lockSlotCount = 0
     for list in lock:
         for j in list:

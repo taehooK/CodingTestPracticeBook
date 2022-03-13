@@ -3,7 +3,7 @@ def solution(array_2d, n):
     for array in array_2d:
         length = len(array)
         for i in range(length):
-            top_row = row - 1
+            top_row, top_right_column = row - 1
             top_left_column = i - 1
             top_right_column = i
             top_left = 0

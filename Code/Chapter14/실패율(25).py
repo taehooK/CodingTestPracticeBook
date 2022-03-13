@@ -3,14 +3,13 @@ def solution(N, stages):
     sumArray = [0] * (N + 1)
     for stage in stages:
         sumArray[stage - 1] += 1
-    count = len(stages)
+    count = len(stages) # 스테이지들 배열 길이가 10
     for i in range(len(sumArray) - 1):
-        if count <= 0:
+        if count <= 0: #
             answer.append((i + 1, 0))
         else:
             answer.append((i + 1, sumArray[i] / count))
         count -= sumArray[i]
-
     answer.sort(key=lambda x: -x[1])
     answer= [i[0] for i in answer]
 

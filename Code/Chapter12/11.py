@@ -4,7 +4,6 @@ def rotateDirection(currentDirection, roatetDirection):
         newDirection += 1
     elif roatetDirection == 'L':
         newDirection -= 1
-
     if newDirection <= 0:
         newDirection = 4
     elif newDirection > 4:
@@ -17,7 +16,7 @@ def getNextCoordinate(currentRow, currentColumn, direction):
     if direction == 1:
         nextColumn += 1
     elif direction == 2:
-        nextRow += 1
+        nextRow += 1 
     elif direction == 3:
         nextColumn -= 1
     elif direction == 4:

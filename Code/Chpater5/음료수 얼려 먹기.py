@@ -30,3 +30,4 @@ for i in range(n):
 print(solution(graph))
 
 
+fd

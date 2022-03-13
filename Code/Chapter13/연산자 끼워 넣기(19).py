@@ -29,8 +29,6 @@ def dfs(i, numbers, value):
         dfs(i + 1, numbers, int(value / numbers[i]))
         divideCount += 1
 
-
-
 if __name__ == "__main__":
     n = int(input())
     numbers = list(map(int, input().split()))

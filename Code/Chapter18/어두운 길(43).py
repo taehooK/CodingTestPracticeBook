@@ -2,7 +2,6 @@ def find_parent(parent, node_index):
     if parent[node_index] != node_index:
         parent[node_index] = find_parent(parent, parent[node_index])
     return parent[node_index]
-
 def union_parent(parent, one, other):
     one = find_parent(parent, one)
     other = find_parent(parent, other)
@@ -11,10 +10,8 @@ def union_parent(parent, one, other):
         parent[other] = one
     else:
         parent[one] = other
-
 def set_up():
     n, m = map(int, input().split())
-
     edges = []
     for i in range(m):
         start, end, cost = map(int, input().split())

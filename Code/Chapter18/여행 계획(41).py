@@ -4,10 +4,10 @@ def find_parent(parent, node_index):
     return parent[node_index]
 
 def union_parent(parent, one, other):
-    parent_of_one = find_parent(parent, one)
-    parent_of_other = find_parent(parent, other)
+    one = find_parent(parent, one)
+    other = find_parent(parent, other)
 
-    if parent_of_one < parent_of_other:
+    if one < other:
         parent[other] = one
     else:
         parent[one] = other

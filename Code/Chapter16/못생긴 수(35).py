@@ -5,26 +5,23 @@ def solution(n):
     three_prime_index = 0
     five_prime_index = 0
 
-    count = 0
-    while count < n - 1:
-        one = array[two_prime_index] * 2
-        second = array[three_prime_index] * 3
-        third = array[five_prime_index] * 5
-        next_value = 0
+    first = 2
+    second = 3
+    third = 5
 
-        if one <= second and one <= third:
-            next_value = one
+    count = 1
+    while count < n:
+        array[count] = min(first, second, third)
+        if array[count] == first:
             two_prime_index += 1
-        elif second <= one and second <= third:
-            next_value = second
+            first = array[two_prime_index] * 2
+        if array[count] == second:
             three_prime_index += 1
-        elif third <= one and third <= second:
-            next_value = third
+            second = array[three_prime_index] * 3
+        if array[count] == third:
             five_prime_index += 1
+            third = array[five_prime_index] * 5
 
-        if next_value == array[count]:
-           continue
-        array[count + 1] = next_value
         count += 1
 
     return array[n - 1]
